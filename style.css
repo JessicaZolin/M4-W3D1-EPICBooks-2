@@ -2,15 +2,19 @@
     #logo  {
         width: 90px;
     }
+    #book-image img {
+        height: 300px;
+    }
 }
 
 @media screen and (min-width: 701px) {
     #logo  {
         width: 150px;
     }
+    #book-image img {
+        height: 700px;
+    }
 }
 
 
-#book-image img {
-    height: 700px;
-}
+
