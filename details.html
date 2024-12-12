@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Book-Details</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col mt-4">
+                <h1>Book-Details</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col my-4">
+                <button type="button"
+                    class="btn p-0 col d-flex justify-content-center align-items-center"
+                    id="details-button"><a class="btn btn-outline-dark" href="index.html">Back</a></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 d-flex justify-content-center" id="book-image">
+                <!-- immagine caricata tramite fetch -->
+            </div>
+            <div class="col d-flex flex-column gap-3" id="book-details">
+                <!-- dettagli (titolo, prezzo, bottone per aggiungere al carrello) caricati tramite fetch -->
+                <h1 id="book-title"></h1>
+                <h5 id="book-price"></h5>
+                <button type="button" class="col-3 btn btn-outline-dark d-flex justify-content-center align-items-center gap-2" id="addToCart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg><span>Add to Cart</span></button>
+            </div>  
+        </div>
+    </div>
+
+</body>
+<script src="script-details.js"></script>
+</html>

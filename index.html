@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>EPICBook</title>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="fixed-top top-0 bg-dark-subtle z-3 border-bottom border-black border-2">
+        <div class="container-fluid d-flex justify-content-between">
+
+            <!-- NAVBAR visibile solo a schermo piccolo -->
+            <div class="col-12 d-md-none">
+                <div class="d-flex align-items-center justify-content-center gap-3 p-2">
+                    <h1 class="m-0">EPICBook</h1>
+                    <h5>Find your book!</h5>
+                </div>
+            </div>
+
+            <!-- NAVBAR visibile a partire da schermi medi: FOTO E TITOLO -->
+            <div class="d-none d-md-flex align-items-center justify-content-center gap-3 p-2 ps-4">
+                <h1 class="m-0">EPICBook</h1>
+                <h5>Find your book!</h5>
+            </div>
+
+            <!-- BARRA DI RICERCA -->
+            <div
+                class="d-none d-lg-flex col-lg-4 col-xxl-6 d-flex flex-wrap flex-md-nowrap gap-2 align-items-center justify-content-center m-auto">
+                <input type="text" placeholder="Find your book" class="form-control h-75 w-100 w-sm-75 search-input" id="search-input">
+                <input type="button" value="Search" class="btn btn-outline-dark h-70" id="search-button">
+            </div>
+
+            <!--  ACCOUNT e CARRELLO -->
+            <div class="d-none d-md-flex align-items-center gap-2 gap-lg-4 px-2 pe-4">
+
+
+                <!-- simbolo SEARCH: con offcanvas -->
+                <div class="d-flex d-lg-none align-items-center gap-2 d-none d-md-flex">
+                    <button class="btn d-flex align-items-center gap-2 dropdown-toggle" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </div>
+
+
+                <!-- simbolo ACCOUNT: con dropdown -->
+                <div class="d-flex align-items-center gap-2 d-none d-md-flex">
+                    <button class="btn d-flex align-items-center gap-2 dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown menù links -->
+                    <ul class="dropdown-menu">
+                        <li class="pb-2"><button class="dropdown-item btn d-flex align-items-center gap-3"
+                                type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                </svg><span>Login or Register</span></button></li>
+
+                        <li class="pb-2"><button class="dropdown-item btn d-flex align-items-center gap-3"
+                                type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                </svg><span>My Cart</span></button></li>
+
+                        <li><button class="dropdown-item btn d-flex align-items-center gap-3" type="button"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-credit-card" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                    <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                </svg><span>Balance of Giftcards</span></button></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="pb-2"><button class="dropdown-item btn d-flex align-items-center gap-3"
+                                type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+                                </svg><span>Sign out</span></button></li>
+                    </ul>
+                </div>
+
+
+                <!-- simbolo CART: con offcanvas -->
+                <div class="d-flex align-items-center gap-2 d-none d-md-flex">
+                    <button class="btn btn-outline-dark d-flex align-items-center gap-2 cart-symbol" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-cart-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                        </svg><span id="number-of-articles" class="number-of-articles">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- HEADER -->
+    <header class="d-none d-sm-block bg-dark text-white py-5 mt-5">
+        <div class="container text-center">
+            <h1>Welcome to our Bookshop!</h1>
+            <p class="m-0">Discover our range of books and find the perfect one for you</p>
+        </div>
+    </header>
+
+
+
+    <!-- MAIN -->
+    <main class="container my-5">
+        <div id="book-container" class="row justify-content-center">
+
+            <!-- card con libri compilate con JS -->
+
+        </div>
+    </main>
+
+
+
+
+
+    <!-- FOOTER: visibile solo da mobile -->
+    <footer class="col-12 position-fixed bottom-0 col-11 border-top d-md-none bg-white">
+        <div class="d-flex col-12 justify-content-between p-2">
+
+            <!-- HOME -->
+            <a href="#">
+                <button type="button" class="btn btn-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+                    </svg>
+                </button>
+            </a>
+
+
+            <!-- simbolo SEARCH: con offcanvas -->
+            <button type="button" class="btn dropdown-toggle dropup" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasTop" aria-controls="offcanvasBottom2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+
+
+            <!-- USER: con offcanvas -->
+            <button type="button" class="btn dropdown-toggle dropup" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                    <path fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                </svg>
+            </button>
+
+
+            <!-- CART: con offcanvas-->
+            <button type="button" class="btn btn-outline-dark cart-symbol" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-cart-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg><span id="number-of-articles" class="ps-2 number-of-articles">0</span>
+            </button>
+
+        </div>
+    </footer>
+
+
+    <!-- FOOTER: visibile a partire da schermi medi -->
+    <footer class="d-none d-md-flex bg-dark text-white py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contatti</h5>
+                    <p>Via Roma 123, 00100 Roma, Italia</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Metodi di pagamento</h5>
+                    <ul class="list-unstyled">
+                        <li>Carta di credito</li>
+                        <li>Paypal</li>
+                        <li>Bonifico Bancario</li>
+                        <li>Satispay</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Spedizione</h5>
+                    <p>Spese di spedizione: 4,99 € <br> Spedizione gratuita per odini superiori a 50 €</p>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+    <!-- DROPDOWN MODALI e OFFCANVAS -->
+
+    <!-- CART: offcanvas menù rights -->
+    <div class="offcanvas offcanvas-end cart" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title" id="offcanvasRightLabel">Your Cart</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group" id="cartItems">
+
+                <!-- Item carrello compilati con JS -->
+
+            </ul>
+                
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">Order value</p>
+                    <p class="m-0" id="oderValue">
+                    </p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class="m-0">Delivery</p>
+                    <p class="m-0" id="shippingCost">
+
+                        <!-- spese spedizione aggiunte tramite JS-->
+
+                    </p>
+                </div>
+
+                <div class="d-flex justify-content-between my-4">
+                    <p>TOTAL</p>
+                    <p id="cartTotal">
+
+                        <!-- spese totali aggiunte tramite JS-->
+
+                    </p>
+                </div>
+
+                <div class="d-flex flex-column gap-2">
+                    <button type="button" class="btn btn-outline-danger" id="clear-cart">SVUOTA CARRELLO</button>
+                    <button type="button" class="btn btn-dark">CHECKOUT</button>
+                    <button type="button" class="btn btn-outline-dark">SHOPPING BAG</button>
+                </div>
+
+        </div>
+    </div>
+
+    <!-- SEARCH : Offcanvas menù top -->
+    <div class="offcanvas offcanvas-top" tubindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small h-50">
+            <div class="col-6 d-flex flex-column gap-2 m-auto">
+                <input type="text" placeholder="Find your book" class="form-control" id="search-input-2">
+                <input type="button" value="Search" data-bs-dismiss="offcanvas" class="btn btn-dark" id="search-button-2">
+            </div>
+        </div>
+    </div>
+
+    <!-- USER (footer): Offcanvas menù bottom -->
+    <div class="offcanvas offcanvas-bottom" tubindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header pb-0">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small pt-0">
+            <button class="btn d-flex align-items-center gap-3" type="button"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                </svg><span>Login or Register</span></button>
+
+            <button class="btn d-flex align-items-center gap-3" type="button"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg><span>My Cart</span></button>
+
+            <button class="btn d-flex align-items-center gap-3" type="button"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                    <path
+                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                    <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                </svg><span>Balance of Giftcards</span></button>
+
+            <button class="btn d-flex align-items-center gap-3" type="button"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="20" height="20" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
+                </svg><span>Sign out</span></button>
+        </div>
+    </div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+<script src="script.js"></script>
+
+</html>

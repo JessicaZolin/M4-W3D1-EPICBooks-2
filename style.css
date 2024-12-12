@@ -1,0 +1,16 @@
+@media screen and (max-width:700px) {
+    #logo  {
+        width: 90px;
+    }
+}
+
+@media screen and (min-width: 701px) {
+    #logo  {
+        width: 150px;
+    }
+}
+
+
+#book-image img {
+    height: 700px;
+}
