@@ -4,6 +4,8 @@ const params = new URLSearchParams(window.location.search)
 console.log(params)
 // Estrae il parametro 'id' dall'URL e lo assegna alla variabile asin
 const asin = params.get("id")
+console.log(asin);
+
 // Costruisce l'URL per la richiesta API usando l'id del libro
 const url = `https://striveschool-api.herokuapp.com/books/${asin}`
 

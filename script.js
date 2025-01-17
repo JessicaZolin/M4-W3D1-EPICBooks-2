@@ -7,9 +7,14 @@ let url = "https://striveschool-api.herokuapp.com/books"
 // Attende che il DOM sia completamente caricato prima di eseguire fetchBooks
 document.addEventListener("DOMContentLoaded", () => {
     fetchBooks();
+    localStorageAvailable();
+    setInterval(updateBook, 200);
 })
 
-// Recupera i dati dei libri dall'API usando fetch
+
+
+// -------------------- RECUPERA I DATI DEI LIBRI DALL'API USANDO FETCH --------------------
+
 const fetchBooks = () => {
     fetch(url)
         .then(raw => raw.json())  // Converte la risposta in JSON
@@ -21,12 +26,16 @@ const fetchBooks = () => {
         .catch((err) => console.log(err))  // Gestisce eventuali errori
 }
 
-// Crea e visualizza le card dei libri nella pagina
+
+
+
+// -------------------- CREA E VISUALIZZA LE CARD DEI LIBRI --------------------
+
 const stampaLibri = (res) => {
     const bookContainer = document.getElementById("book-container")
     // Usa map per creare una card HTML per ogni libro e le unisce in una stringa
     bookContainer.innerHTML += res.map(element => {
-        return `<div class="col-10 col-sm-6 col-lg-4 col-xl-3 mb-4" id ="book_${element.asin}">
+        return `<div class="col-10 col-sm-6 col-lg-4 col-xl-3 mb-4 book-container" id ="book_${element.asin}">
                     <div class="card h-100">
                         <img src="${element.img}" class="card-img-top" alt="${element.title}" height="450px">
                         <div class="card-body">
@@ -59,7 +68,44 @@ const stampaLibri = (res) => {
 
 }
 
-// Gestisce l'aggiunta di un libro al carrello
+
+
+
+
+// -------------------- CONTROLLA IL LOCALSTORAGE --------------------
+
+function localStorageAvailable() { 
+    const savedcart = localStorage.getItem("cart"); // Controlla se il carrello è già presente nello storage locale
+    if (savedcart) { 
+        cart = JSON.parse(savedcart); // Carica il carrello se presente
+        updateCartDisplay(); // Aggiorna la visualizzazione del carrello
+        updateCart(); // Aggiorna il contenuto del carrello
+    }
+}
+
+
+
+
+// -------------------- AGGIORNA I BORDI DEI LIBRI AGGIUNTI AL CARRELLO --------------------
+
+const updateBook = () => {
+    if (cart.length === 0) {    
+        const book = document.querySelectorAll(".book-container")
+        book.forEach(book => {
+            book.style.border = "none"; // Rimuove i bordi da tutti i libri
+        })
+    }// Controlla se ci sono libri nel carrello 
+        for (let i = 0; i < cart.length; i++) { 
+            const book = document.querySelector("#book_" + cart[i].asin)
+            book.style.border = "2px solid red"; // Evidenzia visivamente i libri nel carrello
+        }
+    }
+
+
+
+
+// -------------------- GESTISCE L'AGGIUNTA DI UN LIBRO AL CARRELLO --------------------
+
 const addToCart = (img, title, price, asin) => {
     const book = document.querySelector("#book_" + asin)
     book.style.border = "2px solid red";  // Evidenzia visivamente il libro nel carrello
@@ -80,9 +126,17 @@ const addToCart = (img, title, price, asin) => {
     }
 
     updateCartDisplay();  // Aggiorna la visualizzazione del carrello
+
+    localStorage.setItem("cart", JSON.stringify(cart));  // Salva il carrello nello storage locale
+
+    alert(`Book successfully added to cart ---> ${title.toUpperCase()}!`); // Mostra un messaggio di conferma
 }
 
-// Aggiorna il contatore degli articoli nel carrello
+
+
+
+// -------------------- AGGIORNA IL CONTATORE DEGLI ARTICOLI NEL CARRELLO --------------------
+
 const updateCartDisplay = () => {
     let cartButton = document.querySelectorAll(".number-of-articles");
 
@@ -93,9 +147,15 @@ const updateCartDisplay = () => {
     })
 
     updateCart()  // Aggiorna il contenuto del carrello
+    
+    localStorage.setItem("cart", JSON.stringify(cart));  // Salva il carrello nello storage locale
 }
 
-// Aggiorna il contenuto del carrello e calcola i totali
+
+
+
+// -------------------- AGGIORNA IL CONTENUTO DEL CARRELLO E CALCOLA I TOTALI --------------------
+
 const updateCart = () => {
     let cartItems = document.getElementById("cartItems")
     const oderValue = document.getElementById("oderValue")
@@ -144,19 +204,34 @@ const updateCart = () => {
     // Aggiorna il display per le spese di spedizione e il totale del carrello
     shippingCostDisplay.textContent = ` ${finalShippingCost.toFixed(2).replace(".", ",")} €`;
     totalCart.textContent = `${(total + finalShippingCost).toFixed(2).replace(".", ",")} €`;
-    
+
+    // Salva il carrello nello storage locale    
+    localStorage.setItem("cart", JSON.stringify(cart));    
 }
 
-// Funzione per svuotare il carrello
+
+
+
+// -------------------- SVUOTA IL CARRELLO --------------------
+
 const clearCart = () => {
-   cart = [];
-   updateCartDisplay();
-   updateCart();
+    cart.forEach(item => {
+        const book = document.querySelector("#book_" + item.asin)
+        book.style.border = "none";  // Rimuove l'evidenziazione visiva prendendo l'asin degli articoli presenti nel carrello prima di svuotarlo      
+    })
+    cart = [];
+    const book = document.querySelectorAll(".card")
+    
+    book.forEach(book => {book.style.border = "none";})  // Rimuove l'evidenziazione visiva
+    updateCartDisplay();
 }
 
-document.getElementById("clear-cart").addEventListener("click", clearCart);
 
-// Rimuove un libro dal carrello
+
+
+
+// -------------------- RIMUOVE IL LIBRO DAL CARRELLO --------------------
+
 const removeFromCart = (asin) => {
     cart = cart.filter(item => item.asin !== asin);  // Rimuove l'elemento dall'array
     const book = document.querySelector("#book_" + asin)
@@ -165,7 +240,11 @@ const removeFromCart = (asin) => {
     updateCart();
 }
 
-// Gestisce la visibilità dei libri nella pagina
+
+
+
+// -------------------- GESTISCE LA VISIBILità DEI LIBRI NELLA PAGINA --------------------
+
 const hideBook = (asin) => {
     const book = document.querySelector("#book_" + asin)
     // Non nasconde i libri che sono nel carrello
@@ -176,7 +255,10 @@ const hideBook = (asin) => {
     }
 }
 
-// Implementa la funzionalità di ricerca dei libri
+
+
+
+// -------------------- IMPLEMENTA LA FUNZIONALITA' DI RICERCA --------------------
 const searchBook = (searchInput) => {
     const booksAllTitle = document.querySelectorAll(".card-title")
 
@@ -191,15 +273,17 @@ const searchBook = (searchInput) => {
     })
 }
 
-document.getElementById("search-button-2").addEventListener("click", () => {
-    const searchInput = document.getElementById("search-input-2").value;    
+
+
+
+document.getElementById("search-input").addEventListener("input", () => {
+    searchInput = document.getElementById("search-input").value;
     searchBook(searchInput);
-    document.getElementById("search-input-2").value = "";
+})
+
+document.getElementById("search-input-2").addEventListener("input", () => {
+    searchInput = document.getElementById("search-input-2").value;
+    searchBook(searchInput);
 })
 
 
-document.getElementById("search-button").addEventListener("click", () => {
-    const searchInput = document.getElementById("search-input").value;    
-    searchBook(searchInput);
-    document.getElementById("search-input").value = "";
-})
